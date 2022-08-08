@@ -1,0 +1,10 @@
+{
+    "env": {
+      "targets": {
+        "chrome": "80"
+      },
+      "mode": "entry",
+      "coreJs": 3
+    }
+  }
+  

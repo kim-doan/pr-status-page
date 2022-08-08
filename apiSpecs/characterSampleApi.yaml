@@ -1,0 +1,120 @@
+# https://developers.naver.com/docs/search/local/
+
+openapi: 3.0.0
+info:
+  title: The Rick and Morty API
+  description: The Rick and Morty API는 캐릭터 정보를 제공하는 오픈 API입니다. react-query 샘플 API 용도로 사용합니다.
+  version: 1.0.0
+servers:
+  - url: https://rickandmortyapi.com/api/
+tags:
+  - name: 캐릭터 조회
+paths:
+  /character:
+    get:
+      tags:
+        - 조회
+      summary: 캐릭터 조회
+      description: 페이지 정보를 포함한 캐릭터 조회 REST API입니다
+      operationId: searchCharacter
+      parameters:
+        - name: page
+          description: 조회할 페이지 번호를 입력한다.
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CharacterResult"
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CharacterError"
+components:
+  schemas:
+    CharacterResult:
+      type: object
+      properties:
+        info:
+          description: API의 현재 정보를 담고 있다.
+          type: object
+          properties:
+            count:
+              description: 문서의 총 개수를 의미한다.
+              type: integer
+            pages:
+              description: 현재 문서의 페이지를 의미한다.
+              type: integer
+            next:
+              description: 다음 문서의 페이지 주소를 리턴한다.
+              type: string
+            prev:
+              description: 이전 데이터를 의미한다.
+              type: object
+        results:
+          description: 결과 데이터 목록을 의미한다.
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                description: 캐릭터의 유니크 ID를 의미한다.
+                type: integer
+              name:
+                description: 캐릭터 명을 의미한다.
+                type: string
+              status:
+                description: 상태를 의미한다.
+                type: string
+              type:
+                description: 캐릭터의 타입을 의미한다.
+                type: string
+              gender:
+                description: 캐릭터의 성별을 의미한다.
+                type: string
+              origin:
+                description: origin
+                type: object
+                properties:
+                  name:
+                    description: origin name
+                    type: string
+                  url:
+                    description: url
+                    type: string
+              location:
+                description: location
+                type: object
+                properties:
+                  name:
+                    description: location name
+                    type: string
+                  url:
+                    description: location url
+                    type: string
+              image:
+                description: 이미지 소스
+                type: string
+              episode:
+                description: 에피소드
+                type: array
+                items:
+                  type: string
+              url:
+                description: url
+                type: string
+              created:
+                description: 생성일자
+                type: string
+    CharacterError:
+      type: object
+      properties:
+        error:
+          type: string

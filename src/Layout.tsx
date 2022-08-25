@@ -1,24 +1,25 @@
 import React from "react";
-import styled from "styled-components";
+import { useRecoilState } from "recoil";
+
+import { EmptyLayout, MainLayout } from "components/Layout";
+import { authState, User } from "modules/auth";
 
 interface LayoutProps {
   children?: React.ReactNode;
 }
 
-const Layout = ({ children }: LayoutProps) => (
-  <Page>
-    <Section>{children}</Section>
-  </Page>
-);
+const Layout = ({ children }: LayoutProps) => {
+  const [auth] = useRecoilState<User | null>(authState);
 
-const Page = styled.div`
-  height: 100%;
-  padding-top: 40px;
-`;
-
-const Section = styled.section`
-  display: flex;
-  height: 100%;
-`;
+  return (
+    <div>
+      {auth === null ? (
+        <EmptyLayout>{children}</EmptyLayout>
+      ) : (
+        <MainLayout>{children}</MainLayout>
+      )}
+    </div>
+  );
+};
 
 export default Layout;

@@ -22,13 +22,13 @@ const commonCustomizations = [
 
 const apis = [
   {
-    name: "naverOpenApi",
-    specLocation: "./apiSpecs/naverOpenApi.yaml",
+    name: "characterSampleApi",
+    specLocation: "./apiSpecs/characterSampleApi.yaml",
     customizations: commonCustomizations,
   },
   {
-    name: "characterSampleApi",
-    specLocation: "./apiSpecs/characterSampleApi.yaml",
+    name: "prStatusApi",
+    specLocation: "./apiSpecs/prStatusApi.yaml",
     customizations: commonCustomizations,
   },
 ];
@@ -45,7 +45,7 @@ apis.forEach((api) => {
       `openapi-generator-cli generate -i ${api.specLocation}`,
       "-g typescript-axios",
       `-o ${apiClientDir}`,
-      "-c openapi-config.json",
+      // "-c openapi-config.json",
       "--type-mappings date=string,object=any",
     ].join(" "),
   );

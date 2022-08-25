@@ -49,7 +49,7 @@
     "stylelint-processor-styled-components": "^1.10.0"
   },
   "dependencies": {
-    "@meshkorea/vroong-design-system-web": "^2.3.3",
+    "@meshkorea/vroong-design-system-web": "2.4.1",
     "@openapitools/openapi-generator-cli": "^2.5.1",
     "@swc/core": "^1.2.210",
     "@tanstack/react-query": "^4.0.10",

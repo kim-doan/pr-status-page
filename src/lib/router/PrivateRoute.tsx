@@ -1,5 +1,8 @@
 import React, { ReactElement } from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import { useRecoilState } from "recoil";
+
+import { authState, User } from "modules/auth";
 
 /*
  ** 로그인한 사용자가 URL을 통해 로그인 페이지로 접근했을 경우 접근할 수 없도록 방지
@@ -13,27 +16,18 @@ interface PrivateRouteProps {
 const PrivateRoute = ({
   authentication,
 }: PrivateRouteProps): ReactElement | null => {
+  const [auth] = useRecoilState<User | null>(authState);
+
   /**
    * 로그인 했는지 여부
    */
-  const isAuthenticated = sessionStorage.getItem("isAuthenticated");
-
   if (authentication) {
     // 인증이 필요한 페이지
-
-    return isAuthenticated === null || isAuthenticated === "false" ? (
-      <Navigate to="/login/" />
-    ) : (
-      <Outlet />
-    );
+    return auth === null ? <Navigate to="/login" /> : <Outlet />;
   }
-  // 인증이 불필요한 페이지
 
-  return isAuthenticated === null || isAuthenticated === "false" ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/" />
-  );
+  // 인증이 불필요한 페이지
+  return auth === null ? <Outlet /> : <Navigate to="/" />;
 };
 
 export default PrivateRoute;

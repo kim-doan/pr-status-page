@@ -1,18 +1,21 @@
+import { foundations, globalStyle } from "@meshkorea/vroong-design-system-web";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+  ${globalStyle()}
 
   html,
   body {
-    background-color: #F5F5F5;
+    font-family: ${foundations.typography.fontFamily};
+    background-color: rgb(247, 249, 252);
     height: 100%;
-    margin: 0px;
   }
 
   button,
   input,
   select,
   textarea {
+    font-family: ${foundations.typography.fontFamily};
   }
 
   @media (max-width: 500px) {

@@ -1,0 +1,214 @@
+# https://developers.naver.com/docs/search/local/
+
+openapi: 3.0.0
+info:
+  title: GitHub REST API
+  description: 웹프론트엔드 팀에서 코드리뷰 현황을 확인하기 위한 현황판 관련 API 모음 입니다.
+  version: 1.0.0
+servers:
+  - url: https://api.github.com
+tags:
+  - name: Repository
+    description: GitHub 저장소를 조회합니다.
+
+paths:
+  /search/repositories:
+    get:
+      tags:
+        - Repository
+      security:
+        - Authorization: []
+      summary: 토픽 기반 저장소 조회
+      description: 저장소에 등록된 토픽을 기반으로 저장소 리스트를 불러옵니다.
+      operationId: searchRepositories
+      parameters:
+        - name: per_page
+          description: 조회할 최대 페이지 개수를 입력한다. (n <= 100)
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: q
+          description: 필터링할 데이터 쿼리 문자열을 입력한다.
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: sort
+          description: 정렬 기준을 입력한다.(ex. updated)
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: order
+          description: 정렬 기준의 나열 순서(오름차순, 내림차순)을 입력한다.
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchResult"
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchError"
+
+  /repos/{owner}/{repo}/collaborators:
+    get:
+      tags:
+        - Repository
+      security:
+        - Authorization: []
+      summary: 저장소 협업자 조회
+      description: 저장소에 등록된 협업자를 조회합니다.
+      operationId: searchCollaborators
+      parameters:
+        - in: path
+          name: owner
+          description: 저장소의 소유자를 입력합니다.
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: repo
+          description: 저장소 이름을 입력합니다.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CollaboratorModel"
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchError"
+
+components:
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      in: header
+      name: Authorization
+
+  parameters:
+    Authorization:
+      in: header
+      name: Authorization
+      schema:
+        type: string
+        default: Basic <GIT_HUB_AUTH_TOKEN>
+      required: true
+
+  schemas:
+    SearchResult:
+      type: object
+      properties:
+        total_count:
+          description: 문서의 총 개수를 의미한다.
+          type: integer
+        incomplete_result:
+          description: 문서의 성공여부를 반환한다.
+          type: boolean
+        items:
+          description: 조회 결과 리스트 정보를 반환한다.
+          type: array
+          items:
+            $ref: "#/components/schemas/RepositoryModel"
+
+    RepositoryModel:
+      type: object
+      properties:
+        id:
+          description: 요소 유니크 ID를 의미한다.
+          type: integer
+        node_id:
+          description: 요소 고유 NODE ID를 의미한다.
+          type: string
+        name:
+          description: 저장소 명
+          type: string
+        full_name:
+          description: 저장소 명 (풀네임)
+          type: string
+        owner:
+          description: 저장소 owner
+          type: object
+          properties:
+            login:
+              type: string
+        private:
+          description: 저장소 보안 정책
+          type: boolean
+        description:
+          description: 저장소 설명
+          type: string
+        url:
+          description: 저장소 URL
+          type: string
+        create_at:
+          description: 저장소 생성일
+          type: string
+        updated_at:
+          description: 저장소 정보 수정일
+          type: string
+        pushed_at:
+          description: 저장소 마지막 PUSH 일
+          type: string
+        has_issue:
+          description: 저장소 이슈 오픈 여부
+          type: boolean
+        disabled:
+          description: 저장소 활성화 여부
+          type: boolean
+        open_issues_count:
+          description: 오픈된 이슈 개수
+          type: integer
+        default_branch:
+          description: Default 브랜치
+          type: string
+
+    CollaboratorModel:
+      type: object
+      properties:
+        login:
+          description: 협업자 아이디
+          type: string
+        id:
+          description: 협업자 유니크 ID
+          type: number
+        avatar_url:
+          description: 협업자 아바타 URL
+          type: string
+        repos_url:
+          description: 협업자 저장소 URL
+          type: string
+        html_url:
+          description: 협업자 저장소 HTML URL
+          type: string
+        role_name:
+          description: 저장소 권한
+          type: string
+
+    SearchError:
+      type: object
+      properties:
+        error:
+          type: string
+
+security:
+  - Authorization: []

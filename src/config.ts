@@ -19,6 +19,9 @@ const config = {
     measurementId:
       env.FIREBASE_MEASUREMENT_ID ?? process.env.FIREBASE_MEASUREMENT_ID,
   },
+  githubConfig: {
+    authorization: env.GITHUB_AUTHORIZATION ?? process.env.GITHUB_AUTHORIZATION,
+  },
 };
 
 export default config;

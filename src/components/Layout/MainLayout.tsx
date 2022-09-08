@@ -23,7 +23,7 @@ const MainLayout: React.FC = ({ children }) => {
   const [auth, setAuth] = useRecoilState<User | null>(authState);
   const [, setRepositories] = useRecoilState<Repository[]>(repositoriesState);
   const repositoriesMenu = useRecoilValue(repositoriesMenuState);
-  const [isLnbOpen, setIsLnbOpen] = useState(window.innerWidth > 1279);
+  const [isLnbOpen, setIsLnbOpen] = useState(false);
   const { pathname } = useLocation();
 
   useRepositoryData({

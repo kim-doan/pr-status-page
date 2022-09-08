@@ -2,9 +2,10 @@ import { UseQueryOptions } from "@tanstack/react-query";
 
 import { RepositoryApi } from "apiClients/prStatusApi";
 import Core from "core/Core";
+import { QueryKeyT } from "lib/constant/QueryKeyT";
 import useQuery from "lib/hooks/useQuery";
 
-import { QueryKeyT, REPO_QUERY_KEYS } from "../constant/queryKeys";
+import { REPO_QUERY_KEYS } from "../constant/queryKeys";
 import Collaborator from "../models/Collaborator";
 
 interface useCollaboratorDataProps {

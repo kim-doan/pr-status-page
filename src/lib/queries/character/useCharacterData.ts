@@ -1,7 +1,8 @@
 import { UseQueryOptions } from "@tanstack/react-query";
 
 import { CharacterResult, DefaultApi } from "apiClients/characterSampleApi";
-import { QueryKeyT, QUERY_KEYS } from "lib/constant/queryKeys";
+import { QUERY_KEYS } from "lib/constant/queryKeys";
+import { QueryKeyT } from "lib/constant/QueryKeyT";
 import useQuery from "lib/hooks/useQuery";
 
 interface useCharacterDataProps {

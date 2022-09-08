@@ -8,6 +8,7 @@ import Repository from "../models/Repository";
 import { repositoriesState } from "../states/RepositoriesState";
 
 import RepositoryInfoBox from "./components/RepositoryInfoBox";
+import RepositoryInfoBoxSkeleton from "./components/RepositoryInfoBoxSkeleton";
 
 const RepositoryInfoHead = () => {
   const params = useParams();
@@ -23,7 +24,11 @@ const RepositoryInfoHead = () => {
   return (
     <Wrapper>
       <Head>
-        <RepositoryInfoBox repository={repository} />
+        {repository ? (
+          <RepositoryInfoBox repository={repository} />
+        ) : (
+          <RepositoryInfoBoxSkeleton />
+        )}
         <ControlBox>
           <ButtonV2>
             <IconV2 name="REFRESH" />

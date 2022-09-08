@@ -14,8 +14,6 @@ const RepositoryInfoBox = ({ repository }: RepositoryInfoBoxProps) => {
     repo: repository?.name,
     options: {
       keepPreviousData: true,
-      // eslint-disable-next-line no-console
-      onError: () => console.log("error"),
     },
   });
 

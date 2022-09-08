@@ -4,7 +4,7 @@ import {
   UseQueryOptions,
 } from "@tanstack/react-query";
 
-import { QueryKeyT } from "lib/constant/queryKeys";
+import { QueryKeyT } from "lib/constant/QueryKeyT";
 
 const useQuery = <T>(
   queryKey: QueryKeyT,

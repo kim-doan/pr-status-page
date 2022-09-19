@@ -12,7 +12,7 @@ export default class User {
   }
 
   public get displayName(): string {
-    return this.source.displayName ?? "";
+    return this.source.displayName!;
   }
 
   public get email(): string {

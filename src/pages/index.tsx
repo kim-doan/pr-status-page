@@ -23,6 +23,7 @@ const Pages = () => (
 
           {/* 인증을 반드시 해야만 접속 가능한 페이지 */}
           <Route element={<PrivateRoute authentication />}>
+            <Route path="/" />
             <Route path="/meshkorea/:repoName" element={<HomePage />} />
           </Route>
 

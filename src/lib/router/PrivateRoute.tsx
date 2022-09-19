@@ -18,6 +18,9 @@ const PrivateRoute = ({
 }: PrivateRouteProps): ReactElement | null => {
   const [auth] = useRecoilState<User | null>(authState);
 
+  // eslint-disable-next-line no-console
+  console.log("auth", auth);
+
   /**
    * 로그인 했는지 여부
    */

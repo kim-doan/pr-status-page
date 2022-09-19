@@ -7,3 +7,15 @@ export const authState = atom<User | null>({
   default: undefined,
   dangerouslyAllowMutability: true,
 });
+
+export const initialSettingState = atom<boolean>({
+  key: "initialSetting",
+  default: false,
+  dangerouslyAllowMutability: true,
+});
+
+export const displayNameState = atom<string>({
+  key: "displayNameState",
+  default: "",
+  dangerouslyAllowMutability: true,
+});
